@@ -1,0 +1,25 @@
+body {
+    background-color: lightgrey;
+    position: relative;
+}
+
+img {
+    height: 30vh;
+    width: 30vw;
+    min-height: 50%;
+    min-width: 200px;
+    margin: 1%;
+}
+
+fieldset {
+    width: 50%;
+    position: center;
+    margin:auto;
+}
+
+h1 {
+    width: 50%;
+    position: center;
+    margin: auto;
+    font-size: 3vw;
+}

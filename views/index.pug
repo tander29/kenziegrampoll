@@ -1,0 +1,19 @@
+html
+    head
+        title=  title
+        link(rel='stylesheet', href='stylesheet.css')
+    body
+        h1= "Welcome to Kenzie Gram"
+        form(method='POST' action='/public/upload' enctype='multipart/form-data')
+            fieldset
+                legend='Upload a Photo'
+                input(type='file' name='myPhoto' id='inputPhoto')
+                input(type='submit' id='submit')
+
+        each photo in photos
+             img(src=`http://localhost:3000/uploads/${photo}`)
+
+        script(src="index.js")
+
+            
+       
