@@ -1,6 +1,7 @@
 body {
     background-color: lightgrey;
     position: relative;
+   
 }
 
 img {
@@ -23,3 +24,4 @@ h1 {
     margin: auto;
     font-size: 3vw;
 }
+

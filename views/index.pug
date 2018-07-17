@@ -4,14 +4,17 @@ html
         link(rel='stylesheet', href='stylesheet.css')
     body
         h1= "Welcome to Kenzie Gram"
+        div(id="error")
         form(method='POST' action='/public/upload' enctype='multipart/form-data')
             fieldset
                 legend='Upload a Photo'
                 input(type='file' name='myPhoto' id='inputPhoto')
                 input(type='submit' id='submit')
 
-        each photo in photos
-             img(src=`http://localhost:3000/uploads/${photo}`)
+        div(id="wrapper")
+            div(id="newPhoto")
+            each photo in photos
+                img(src=`/uploads/${photo}` id=photo)
 
         script(src="index.js")
 

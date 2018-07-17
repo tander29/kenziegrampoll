@@ -14,8 +14,8 @@ app.set('view engine', 'pug')
 let modifiedTime = 0;
 
 app.post('/public/upload', upload.single('myPhoto'), (request, response, next) => {
-    modifiedTime = fs.statSync(uploadPath).mtimeMs;
     fs.readdir(uploadPath, (err, items) => {
+        //think about making the file name the current time
         response.render('submission', { photo: request.file.filename })
     })
 
@@ -24,47 +24,35 @@ app.post('/public/upload', upload.single('myPhoto'), (request, response, next) =
 app.post('/latest', (request, response) => {
     // serverTime = Date.now()
     let newArray = []
-    fs.readdir(uploadPath, (err, items) => {
-        request.body.timeStamp = modifiedTime
-        console.log(items)
 
+    fs.readdir(uploadPath, (err, items) => {
+
+        let mostRecentTime = request.body.clientTime
         items.forEach((value) => {
             const fileModifiedTime = fs.statSync(`${uploadPath}/${value}`).mtimeMs
-
-            if (fileModifiedTime > request.body.timeStamp) {
-                console.log('this was cool')
+            if (fileModifiedTime > request.body.clientTime) {
 
                 newArray.push([value, fileModifiedTime])
+                if (mostRecentTime < fileModifiedTime) { mostRecentTime = fileModifiedTime }
+
             }
         })
 
         response.status(201)
-        response.send({ images: newArray })
+        response.send({ images: newArray, timeStamp: mostRecentTime })
     })
 
 })
 
 
-
-
-
-
 app.get("/", (req, res) => {
-    modifiedTime = fs.statSync(uploadPath).mtimeMs;
     fs.readdir(uploadPath, (err, items) => {
         // console.log(items);
         res.render('index', { title: 'Kenzie Gram', photos: items })
     })
 })
 
-function getThis() {
-    app.get("/", (req, res) => {
-        fs.readdir(uploadPath, (err, items) => {
-            // console.log(items);
-            res.render('index', { title: 'Kenzie Gram', photos: items })
-        })
-    })
-}
+
 
 
 
